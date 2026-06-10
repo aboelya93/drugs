@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <!-- استدعاء ملف البيانات المحلي للعمل دون إنترنت -->
+    <script src="medications.js"></script>
+    <!-- عند التشغيل الفعلي دون إنترنت تماماً، يفضل تحميل هذه الملفات وحفظها محلياً في المشروع -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #1a3c6d; 
+            --accent: #f39c12; 
+            --bg: #f8fafc; 
+            --card: #ffffff; 
+            --text: #334155; 
+            --input-border: #e2e8f0; 
+            --toggle-bg: #f1f5f9; 
+            --footer-text: #94a3b8; 
+            --result-bg: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); margin: 0; padding: 10px; display: flex; justify-content: center; transition: 0.4s; }
+        .container { width: 100%; max-width: 400px; background: var(--card); padding: 15px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; padding-bottom: 140px; transition: 0.4s; }
+        
+        /* تصميم القوائم المنسدلة للإعدادات */
+        .settings-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .dropdown-wrapper { flex: 1; position: relative; }
+        .dropdown-wrapper i { position: absolute; right: 12px; top: 12px; color: var(--primary); z-index: 1; }
+        .custom-select { width: 100%; padding: 10px 35px 10px 10px; border-radius: 12px; border: 1.5px solid var(--input-border); background: var(--card); color: var(--text); font-family: 'Tajawal'; font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; font-weight: bold; }
+
+        .header { background: var(--primary); color: white; padding: 15px; border-radius: 12px; text-align: center; font-weight: 700; margin-bottom: 15px; transition: 0.4s; }
+        
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .type-selector { display: flex; gap: 5px; margin-bottom: 15px; }
+        .type-btn { flex: 1; padding: 10px 2px; border: 1px solid var(--input-border); border-radius: 10px; background: var(--card); color: var(--text); font-size: 10px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: 0.3s; }
+        .type-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        select, input[type="number"] { width: 100%; padding: 12px; border-radius: 8px; border: 1.5px solid var(--input-border); margin-bottom: 10px; font-family: 'Tajawal'; font-size: 14px; text-align: center; box-sizing: border-box; background: var(--card); color: var(--text); }
+        .toggle-group { display: flex; background: var(--toggle-bg); border-radius: 10px; padding: 3px; margin-bottom: 10px; }
+        .toggle-btn { flex: 1; padding: 8px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 12px; background: transparent; color: var(--text); }
+        .toggle-btn.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        /* صندوق النتائج المتغير اللون */
+        .result-box { background: var(--result-bg); color: white !important; border-radius: 18px; padding: 15px; text-align: center; margin-top: 10px; transition: 0.4s; }
+        .res-val { font-size: 32px; font-weight: 700; color: #fff; margin: 5px 0; }
+        .iv-container { border: 1px dashed #ffffff44; border-radius: 12px; padding: 10px; margin-top: 10px; background: rgba(255,255,255,0.05); }
+        .drop-zone { height: 35px; position: relative; overflow: hidden; display: flex; justify-content: center; }
+        .drop-anim { font-size: 18px; color: #60a5fa; position: absolute; top: -25px; animation: drip linear infinite; display: none; }
+        @keyframes drip { to { transform: translateY(60px); } }
+        
+        .sound-controls { margin-top: 10px; display: flex; justify-content: center; gap: 5px; }
+        .sound-btn { background: #334155; color: white; border: none; padding: 5px 10px; border-radius: 20px; font-size: 10px; cursor: pointer; }
+        .sound-btn.active { background: var(--accent); }
+        
+        .footer { position: absolute; bottom: 15px; left: 0; right: 0; text-align: center; font-size: 11px; color: var(--footer-text); line-height: 1.8; }
+        .footer a { text-decoration: none; color: var(--footer-text); font-weight: bold; display: inline-flex; align-items: center; gap: 4px; }
+        .footer i.fa-instagram { color: #E1306C; font-size: 12px; }
+    </style>
+</head>
+<body onload="init()">
+<div class="container">
+    
+    <div class="settings-row">
+        <div class="dropdown-wrapper">
+            <i class="fas fa-palette"></i>
+            <select id="themeSelect" class="custom-select" onchange="updateColors()">
+                <option value="blue">النمط الأزرق</option>
+                <option value="red">النمط الأحمر</option>
+                <option value="green">النمط الأخضر</option>
+                <option value="yellow">النمط الأصفر</option>
+                <option value="black">النمط الأسود</option>
+                <option value="white">النمط الفضي</option>
+            </select>
+        </div>
+        <div class="dropdown-wrapper">
+            <i class="fas fa-adjust"></i>
+            <select id="modeSelect" class="custom-select" onchange="updateView()">
+                <option value="light">وضع نهاري</option>
+                <option value="dark">وضع ليلي</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="header" id="mainHeader">حاسبة جرعات الأدوية</div>
+    
+    <div class="type-selector">
+        <button class="type-btn active" id="btnSyrup" onclick="setMedType('Syrup', this)"><i class="fas fa-prescription-bottle"></i>شرابات</button>
+        <button class="type-btn" onclick="setMedType('Vial', this)"><i class="fas fa-syringe"></i>فيالات</button>
+        <button class="type-btn" onclick="setMedType('Drop', this)"><i class="fas fa-eye-dropper"></i>قطرات</button>
+        <button class="type-btn" id="btnIv" onclick="showIv(this)"><i class="fas fa-fill-drip"></i>تنقيط</button>
+    </div>
+
+    <div id="doseCalc">
+        <select id="medList" onchange="calculate()"><option value="">-- جاري التحميل... --</option></select>
+        <div class="toggle-group">
+            <button id="modeW" class="toggle-btn active" onclick="setMode('w')">بالوزن</button>
+            <button id="modeA" class="toggle-btn" onclick="setMode('a')">بالعمر</button>
+        </div>
+        
+        <div id="wInput">
+            <input type="range" id="wSlider" min="1" max="60" value="10" style="width:100%" oninput="calculate()">
+            <div style="text-align:center; font-weight:700; color:var(--text)">الوزن: <span id="wShow">10</span> كجم</div>
+        </div>
+
+        <div id="aInput" style="display:none; text-align:center;">
+            <div class="toggle-group">
+                <button id="utM" class="toggle-btn" onclick="setAgeUnit('m')">شهر</button>
+                <button id="utY" class="toggle-btn active" onclick="setAgeUnit('y')">سنة</button>
+            </div>
+            <input type="range" id="aSlider" min="1" max="15" step="0.5" value="1" style="width:100%" oninput="calculate()">
+            <div style="color:var(--text); font-weight:700;">العمر: <span id="aShow">1 سنة</span></div>
+            <div style="color:var(--accent); font-size:12px; margin-top:4px;">الوزن التقديري: <span id="estW">10</span> كجم</div>
+        </div>
+
+        <div class="toggle-group" style="margin-top:10px;">
+            <button id="unMl" class="toggle-btn active" onclick="setUnit('ml')">مل</button>
+            <button id="unMg" class="toggle-btn" onclick="setUnit('mg')">ملغم</button>
+        </div>
+    </div>
+
+    <div id="ivCalc" style="display:none">
+        <input type="number" id="ivVol" placeholder="الحجم الكلي (مل)" oninput="calcIv()">
+        <select id="ivFact" onchange="calcIv()">
+            <option value="20">جهاز إعطاء عادي (20 قطرة/مل)</option>
+            <option value="60">جهاز إعطاء دقيق (مايكرودرب) (60 قطرة/مل)</option>
+            <option value="15">جهاز إعطاء سريع (15 قطرة/مل)</option>
+            <option value="10">جهاز نقل دم (10 قطرات/مل)</option>
+        </select>
+        <div class="toggle-group">
+            <button id="ivH" class="toggle-btn active" onclick="setIvUt('h')">ساعة</button>
+            <button id="ivM" class="toggle-btn" onclick="setIvUt('m')">دقيقة</button>
+        </div>
+        <input type="number" id="ivTime" placeholder="الوقت" oninput="calcIv()">
+    </div>
+
+    <div class="result-box" id="mainResultBox">
+        <div id="resLabel" style="font-size:12px; opacity:0.8;">الجرعة المقترحة</div>
+        <div class="res-val"><span id="resVal">0.00</span> <span id="resUnit" style="color:var(--accent); font-size:18px;">مل</span></div>
+        <div id="resRange" style="font-size:11px; color:#94a3b8; margin-bottom:5px;"></div>
+        <div id="resFreq" style="font-weight:700; font-size:14px;"></div>
+        <div id="resStab" style="font-size:11px; color:#fbbf24; border-top:1px solid #ffffff11; padding-top:5px; margin-top:5px; display:none;"></div>
+        <div id="resNote" style="font-size:12px; color:#60a5fa; margin-top:8px; display:none; border: 1px dashed #60a5fa; padding: 5px; border-radius: 8px;"></div>
+        
+        <div id="ivSim" style="display:none">
+            <div id="secRate" style="font-size:11px; color:#60a5fa; margin-top:5px;"></div>
+            <div class="iv-container"><div class="drop-zone"><i id="dropIcon" class="fas fa-tint drop-anim"></i></div></div>
+            <div class="sound-controls">
+                <button id="sndWater" class="sound-btn active" onclick="setSound('water')">قطرة</button>
+                <button id="sndBeep" class="sound-btn" onclick="setSound('beep')">تنبيه</button>
+                <button id="sndMute" class="sound-btn" onclick="setSound('mute')">صامت</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        By:<br>
+        <a href="https://instagram.com/3mar.b.93" target="_blank">Omar Abo Elya <i class="fab fa-instagram"></i></a><br>
+        <a href="https://instagram.com/noaman_aliraqi" target="_blank">Dr. Nu'man <i class="fab fa-instagram"></i></a>
+    </div>
+</div>
+
+<script>
+    let filtered = [], curType = 'Syrup', curMode = 'w', ageUt = 'y', resUt = 'ml', ivUt = 'h', isIv = false;
+    let soundType = 'water', soundInterval;
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function init() {
+        const savedColor = localStorage.getItem('appColor') || 'blue';
+        const savedView = localStorage.getItem('appView') || 'light';
+        
+        document.getElementById('themeSelect').value = savedColor;
+        document.getElementById('modeSelect').value = savedView;
+        
+        updateColors();
+        updateView();
+
+        // قراءة البيانات من الملف المحلي مباشرة
+        if (typeof allMeds !== 'undefined' && allMeds.length > 0) {
+            setMedType('Syrup', document.getElementById('btnSyrup'));
+        } else {
+            console.warn("لم يتم العثور على بيانات في ملف medications.js");
+        }
+    }
+
+    // تحديث ألوان القوائم وصندوق النتائج
+    function updateColors() {
+        const color = document.getElementById('themeSelect').value;
+        localStorage.setItem('appColor', color);
+        const root = document.documentElement;
+        
+        const colorMap = {
+            blue:   { primary: '#1a3c6d', result: 'linear-gradient(135deg, #1e3a8a, #1e293b)' },
+            red:    { primary: '#c53030', result: 'linear-gradient(135deg, #9b1c1c, #1a202c)' },
+            green:  { primary: '#2f855a', result: 'linear-gradient(135deg, #22543d, #1a202c)' },
+            yellow: { primary: '#b7791f', result: 'linear-gradient(135deg, #975a16, #1a202c)' },
+            black:  { primary: '#2d3748', result: 'linear-gradient(135deg, #1a202c, #000000)' },
+            white:  { primary: '#4a5568', result: 'linear-gradient(135deg, #718096, #2d3748)' }
+        };
+
+        const theme = colorMap[color];
+        root.style.setProperty('--primary', theme.primary);
+        root.style.setProperty('--result-bg', theme.result);
+    }
+
+    // تحديث وضع الخلفية (ليلي/نهاري)
+    function updateView() {
+        const view = document.getElementById('modeSelect').value;
+        localStorage.setItem('appView', view);
+        const root = document.documentElement;
+        
+        if(view === 'dark') {
+            root.style.setProperty('--bg', '#0f172a');
+            root.style.setProperty('--card', '#1e293b');
+            root.style.setProperty('--text', '#f1f5f9');
+            root.style.setProperty('--toggle-bg', '#334155');
+            root.style.setProperty('--input-border', '#334155');
+        } else {
+            root.style.setProperty('--bg', '#f8fafc');
+            root.style.setProperty('--card', '#ffffff');
+            root.style.setProperty('--text', '#334155');
+            root.style.setProperty('--toggle-bg', '#f1f5f9');
+            root.style.setProperty('--input-border', '#e2e8f0');
+        }
+    }
+
+    function setMedType(t, btn) {
+        isIv = false; clearInterval(soundInterval);
+        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curType = t;
+        document.getElementById('doseCalc').style.display = 'block';
+        document.getElementById('ivCalc').style.display = 'none';
+        document.getElementById('ivSim').style.display = 'none';
+        document.getElementById('resLabel').innerText = "الجرعة المقترحة";
+        document.getElementById('resUnit').style.fontSize = "18px";
+        filtered = allMeds.filter(m => m.Type === t);
+        let sel = document.getElementById('medList');
+        sel.innerHTML = '<option value="">-- اختر الدواء --</option>' + filtered.map((m, i) => `<option value="${i}">${m.Medication_Name}</option>`).join('');
+        calculate();
+    }
+
+    function setMode(m) { 
+        curMode = m; 
+        document.getElementById('modeW').classList.toggle('active', m==='w'); 
+        document.getElementById('modeA').classList.toggle('active', m==='a'); 
+        document.getElementById('wInput').style.display = (m==='w') ? 'block' : 'none'; 
+        document.getElementById('aInput').style.display = (m==='a') ? 'block' : 'none'; 
+        calculate(); 
+    }
+
+    function setAgeUnit(u) { 
+        ageUt = u; 
+        let slider = document.getElementById('aSlider');
+        if(u === 'm') { slider.max = 12; slider.step = 1; } 
+        else { slider.max = 15; slider.step = 0.5; }
+        document.getElementById('utM').classList.toggle('active', u==='m'); 
+        document.getElementById('utY').classList.toggle('active', u==='y'); 
+        calculate(); 
+    }
+
+    function setUnit(u) { resUt = u; document.getElementById('unMl').classList.toggle('active', u==='ml'); document.getElementById('unMg').classList.toggle('active', u==='mg'); calculate(); }
+
+    function calculate() {
+        if(isIv) return;
+        let ageVal = parseFloat(document.getElementById('aSlider').value);
+        let weight = (curMode === 'w') ? parseFloat(document.getElementById('wSlider').value) : (ageUt === 'y' ? (ageVal * 2 + 8) : (ageVal / 2 + 4));
+        document.getElementById('wShow').innerText = weight; document.getElementById('estW').innerText = weight;
+        document.getElementById('aShow').innerText = ageVal + (ageUt==='y' ? ' سنة' : ' شهر');
+        
+        let idx = document.getElementById('medList').value;
+        if(idx === "") { document.getElementById('resVal').innerText = "0.00"; return; }
+        
+        let med = filtered[idx];
+        let mg = weight * med.Std_Dose_mg_kg;
+        let ml = mg / (med.Strength_mg / med.Per_ml);
+        
+        if(resUt === 'ml') {
+            document.getElementById('resVal').innerText = ml.toFixed(2);
+            document.getElementById('resUnit').innerText = "مل";
+            let minMl = (weight * med.Min_Dose_mg_kg) / (med.Strength_mg / med.Per_ml);
+            let maxMl = (weight * med.Max_Dose_mg_kg) / (med.Strength_mg / med.Per_ml);
+            document.getElementById('resRange').innerText = `النطاق: ${minMl.toFixed(2)} - ${maxMl.toFixed(2)} مل`;
+        } else {
+            document.getElementById('resVal').innerText = mg.toFixed(1);
+            document.getElementById('resUnit').innerText = "ملغم";
+            let minMg = weight * med.Min_Dose_mg_kg;
+            let maxMg = weight * med.Max_Dose_mg_kg;
+            document.getElementById('resRange').innerText = `النطاق: ${minMg.toFixed(1)} - ${maxMg.toFixed(1)} ملغم`;
+        }
+        document.getElementById('resFreq').innerText = med.Frequency_en || "";
+        let stab = document.getElementById('resStab');
+        if(med.Stability_en) { stab.innerText = "الصلاحية بعد الفتح: " + med.Stability_en; stab.style.display = "block"; } else stab.style.display = "none";
+        let note = document.getElementById('resNote');
+        if(med.Note_en) { note.innerText = med.Note_en; note.style.display = "block"; } else note.style.display = "none";
+    }
+
+    function showIv(btn) {
+        isIv = true; clearInterval(soundInterval);
+        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('doseCalc').style.display = 'none';
+        document.getElementById('ivCalc').style.display = 'block';
+        document.getElementById('ivSim').style.display = 'block';
+        document.getElementById('resLabel').innerText = "سرعة التنقيط";
+        document.getElementById('resUnit').innerText = "قطرة/دقيقة";
+        document.getElementById('resUnit').style.fontSize = "14px";
+        document.getElementById('resRange').innerText = "";
+        document.getElementById('resFreq').innerText = "";
+        document.getElementById('resStab').style.display = "none";
+        document.getElementById('resNote').style.display = "none";
+        calcIv();
+    }
+
+    function setIvUt(u) { ivUt = u; document.getElementById('ivH').classList.toggle('active', u==='h'); document.getElementById('ivM').classList.toggle('active', u==='m'); calcIv(); }
+
+    function calcIv() {
+        clearInterval(soundInterval);
+        let vol = parseFloat(document.getElementById('ivVol').value) || 0, time = parseFloat(document.getElementById('ivTime').value) || 0;
+        let fact = parseFloat(document.getElementById('ivFact').value);
+        if(vol > 0 && time > 0) {
+            let mins = (ivUt === 'h') ? time * 60 : time;
+            let gtt = (vol * fact) / mins;
+            let sec = 60 / gtt;
+            document.getElementById('resVal').innerText = Math.round(gtt);
+            document.getElementById('secRate').innerText = `قطرة كل ${sec.toFixed(1)} ثانية`;
+            document.getElementById('dropIcon').style.display = 'block';
+            document.getElementById('dropIcon').style.animationDuration = (sec > 0 ? sec : 0) + "s";
+            if(sec > 0) soundInterval = setInterval(playDropSound, sec * 1000);
+        } else { document.getElementById('resVal').innerText = "0"; document.getElementById('dropIcon').style.display = 'none'; document.getElementById('secRate').innerText = ""; }
+    }
+
+    function setSound(s) { soundType = s; document.getElementById('sndWater').classList.toggle('active', s==='water'); document.getElementById('sndBeep').classList.toggle('active', s==='beep'); document.getElementById('sndMute').classList.toggle('active', s==='mute'); if(s!=='mute' && audioCtx.state==='suspended') audioCtx.resume(); }
+
+    function playDropSound() {
+        if(soundType === 'mute') return;
+        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        if(soundType === 'water') { osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); }
+        else { osc.type = 'sine'; osc.frequency.setValueAtTime(1200, audioCtx.currentTime); gain.gain.setValueAtTime(0.05, audioCtx.currentTime); }
+        osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    }
+</script>
+</body>
+</html>
