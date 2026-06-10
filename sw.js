@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dose-calc-v1';
+const CACHE_NAME = 'dose-calc-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -8,16 +8,25 @@ const ASSETS = [
   'https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap'
 ];
 
-// تثبيت ملف الخدمة وحفظ الملفات الأساسية في الذاكرة المؤقتة (Cache)
+// التثبيت المرن: استخدام Promise.allSettled لتجنب فشل التثبيت في حال تعطل أي رابط خارجي مؤقتاً
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(ASSETS);
+      return Promise.allSettled(
+        ASSETS.map(url => {
+          return fetch(url).then(response => {
+            if (response.ok) {
+              return cache.put(url, response);
+            }
+            throw new Error('Fetch failed for: ' + url);
+          });
+        })
+      );
     })
   );
 });
 
-// تفعيل ملف الخدمة وتنظيف الكاش القديم عند التحديث
+// تفعيل وتحديث الكاش
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -32,7 +41,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// الاستجابة للطلبات من الكاش مباشرة عند انقطاع الإنترنت
+// الاستجابة من الكاش أو الشبكة عند الحاجة
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
