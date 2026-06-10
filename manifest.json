@@ -3,12 +3,12 @@
   "name": "حاسبة الجرعات الطبية PWA",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/192/822/822143.png",
+      "src": "https://img.icons8.com/color/192/000000/pill.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/822/822143.png",
+      "src": "https://img.icons8.com/color/512/000000/pill.png",
       "type": "image/png",
       "sizes": "512x512"
     }
