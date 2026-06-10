@@ -1,0 +1,21 @@
+{
+  "short_name": "حاسبة الجرعات",
+  "name": "حاسبة الجرعات الطبية PWA",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/192/822/822143.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/822/822143.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#1a3c6d",
+  "theme_color": "#1a3c6d",
+  "display": "standalone",
+  "orientation": "portrait"
+}
