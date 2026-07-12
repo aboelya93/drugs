@@ -1,21 +1,22 @@
 {
-  "short_name": "حاسبة الجرعات",
-  "name": "حاسبة الجرعات الطبية PWA",
+  "short_name": "حاسبة الأدوية",
+  "name": "تطبيق حاسبة الجرعات الطبية",
   "icons": [
     {
-      "src": "https://img.icons8.com/color/192/000000/pill.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/822/822143.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "https://img.icons8.com/color/512/000000/pill.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/822/822143.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "index.html",
   "background_color": "#1a3c6d",
-  "theme_color": "#1a3c6d",
   "display": "standalone",
-  "orientation": "portrait"
+  "scope": "./",
+  "theme_color": "#1a3c6d",
+  "description": "تطبيق طبي لحساب جرعات الأدوية يعمل بدون إنترنت"
 }
