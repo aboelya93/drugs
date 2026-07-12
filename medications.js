@@ -1,4 +1,4 @@
-"const localMedications = [
+const localMedications = [
   {
     ""Medication_Name"": ""Paracetamol Drop"",
     ""Type"": ""Drop"",
@@ -350,4 +350,4 @@
     ""Stability_en"": ""24 ساعة"",
     ""Note_en"": ""يجب ان يحل بـ 10 مل""
   }
-];"
+];
