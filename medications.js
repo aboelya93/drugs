@@ -10,7 +10,7 @@ const localMedications = [
     "Max_Dose_mg": 4000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "شهر",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Amoxicillin Syrup 125mg/5ml",
@@ -23,7 +23,7 @@ const localMedications = [
     "Max_Dose_mg": 1000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "اسبوع",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Amoxicillin Syrup 250mg/5ml",
@@ -36,20 +36,20 @@ const localMedications = [
     "Max_Dose_mg": 1000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "اسبوع",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Augmentin 312.5mg/5ml",
     "Type": "Syrup",
     "Std_Dose_mg_kg": 9,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 312.5,
     "Per_ml": 5,
     "Max_Dose_mg": 1000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "اسبوع",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Azithromycin Syrup 200mg/5ml",
@@ -62,14 +62,14 @@ const localMedications = [
     "Max_Dose_mg": 500,
     "Frequency_en": "مرة واحدة في اليوم",
     "Stability_en": "اسبوع",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Brufen Syrup 100mg/5ml",
     "Type": "Syrup",
     "Std_Dose_mg_kg": 5,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 100,
     "Per_ml": 5,
     "Max_Dose_mg": 800,
@@ -88,7 +88,7 @@ const localMedications = [
     "Max_Dose_mg": 400,
     "Frequency_en": "مرتين في اليوم",
     "Stability_en": "اسبوعين",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Flagyl Syrup 200mg/5ml",
@@ -101,7 +101,7 @@ const localMedications = [
     "Max_Dose_mg": 1500,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "شهر",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Keflex Syrup 125mg/5ml",
@@ -114,7 +114,7 @@ const localMedications = [
     "Max_Dose_mg": 2000,
     "Frequency_en": "4 مرات في اليوم",
     "Stability_en": "اسبوعين",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Keflex Syrup 250mg/5ml",
@@ -127,7 +127,7 @@ const localMedications = [
     "Max_Dose_mg": 2000,
     "Frequency_en": "4 مرات في اليوم",
     "Stability_en": "اسبوعين",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Mefenamic acid Syrup 50mg/5ml",
@@ -140,7 +140,7 @@ const localMedications = [
     "Max_Dose_mg": 1000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "شهر",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Ondansetron Syrup 4mg/5ml",
@@ -153,7 +153,7 @@ const localMedications = [
     "Max_Dose_mg": 16,
     "Frequency_en": "مرتين في اليوم",
     "Stability_en": "شهر",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Paracetamol Syrup 125mg/5ml",
@@ -166,7 +166,7 @@ const localMedications = [
     "Max_Dose_mg": 4000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "شهر",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Paracetamol Syrup 250mg/5ml",
@@ -179,20 +179,20 @@ const localMedications = [
     "Max_Dose_mg": 4000,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "شهر",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Trimethoprim+SMX 200+40mg/5ml",
     "Type": "Syrup",
     "Std_Dose_mg_kg": 4,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 40,
     "Per_ml": 5,
     "Max_Dose_mg": 320,
     "Frequency_en": "مرتين في اليوم",
     "Stability_en": "اسبوع",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Amoxicillin Vial 500mg/5ml",
@@ -251,7 +251,7 @@ const localMedications = [
     "Type": "Vial",
     "Std_Dose_mg_kg": 25,
     "Min_Dose_mg_kg": 17,
-    "Max_Dose_mg_kg": ",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 500,
     "Per_ml": 10,
     "Max_Dose_mg": 2000,
@@ -263,86 +263,86 @@ const localMedications = [
     "Medication_Name": "Dexamethasone Ampoule 8mg/2ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 0.15,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 8,
     "Per_ml": 2,
     "Max_Dose_mg": 16,
     "Frequency_en": "2 الى 4 مرات في اليوم",
     "Stability_en": "يستخدم فوراً",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Diazepam Ampoule 10mg/2ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 0.25,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 10,
     "Per_ml": 2,
     "Max_Dose_mg": 10,
     "Frequency_en": "مرة واحدة في اليوم (عند الحاجة)",
     "Stability_en": "يستخدم فوراً",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Hydrocortisone Vial 100mg/2ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 3,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 100,
     "Per_ml": 2,
     "Max_Dose_mg": 500,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "24 ساعة (مبرد)",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Luminal Ampoule 200mg/1ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 15,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 200,
     "Per_ml": 1,
     "Max_Dose_mg": 1000,
     "Frequency_en": "جرعة محملة",
     "Stability_en": "يستخدم فوراً",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Ondansetron Ampoule 2mg/ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 0.15,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 2,
     "Per_ml": 1,
     "Max_Dose_mg": 16,
     "Frequency_en": "3 مرات في اليوم",
     "Stability_en": "يستخدم فوراً",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Paracetamol Vial 100ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 14,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 1000,
     "Per_ml": 100,
     "Max_Dose_mg": 4000,
     "Frequency_en": "4 مرات في اليوم",
     "Stability_en": "يستخدم فوراً",
-    "Note_en": "
+    "Note_en": ""
   },
   {
     "Medication_Name": "Vancomycin Vial 500mg/10ml",
     "Type": "Vial",
     "Std_Dose_mg_kg": 15,
-    "Min_Dose_mg_kg": ",
-    "Max_Dose_mg_kg": ",
+    "Min_Dose_mg_kg": "",
+    "Max_Dose_mg_kg": "",
     "Strength_mg": 500,
     "Per_ml": 10,
     "Max_Dose_mg": 2000,
